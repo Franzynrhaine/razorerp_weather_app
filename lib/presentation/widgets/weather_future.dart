@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:razorerp_weather_app/domain/entities/weather.dart';
@@ -78,11 +79,14 @@ class WeatherDayItem extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Image.network(
-              'http://openweathermap.org/img/w/${weather.icon}.png',
-              width: 40,
-              height: 40,
-            ),
+            child: CachedNetworkImage(
+                imageUrl: 'http://openweathermap.org/img/w/${weather.icon}.png',
+                width: 64,
+                height: 64,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+            
           ),
           Expanded(
             flex: 2,
